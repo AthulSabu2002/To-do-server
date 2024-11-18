@@ -2,7 +2,7 @@ const express = require('express');
 const Todo = require('../models/todo');
 const router = express.Router();
 
-// Create a new todo
+
 router.post('/', async (req, res) => {
   try {
     const newTodo = new Todo({
@@ -15,7 +15,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Get all todos
+
 router.get('/', async (req, res) => {
   try {
     const todos = await Todo.find();
@@ -26,7 +26,7 @@ router.get('/', async (req, res) => {
 });
 
 
-// Update a todo
+
 router.put('/:id', async (req, res) => {
   try {
     const updatedTodo = await Todo.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -37,7 +37,7 @@ router.put('/:id', async (req, res) => {
 });
 
 
-// Delete a todo
+
 router.delete('/:id', async (req, res) => {
   try {
     await Todo.findByIdAndDelete(req.params.id);
@@ -47,7 +47,7 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-// Delete multiple todos
+
 router.post('/deleteMany', async (req, res) => {
   try {
     await Todo.deleteMany({ _id: { $in: req.body.ids } });
