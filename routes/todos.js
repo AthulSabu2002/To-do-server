@@ -2,11 +2,11 @@ const express = require('express');
 const Todo = require('../models/todo');
 const router = express.Router();
 
-
 router.post('/', async (req, res) => {
   try {
     const newTodo = new Todo({
       text: req.body.text,
+      completed: false
     });
     const savedTodo = await newTodo.save();
     res.json(savedTodo);
@@ -14,7 +14,6 @@ router.post('/', async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
-
 
 router.get('/', async (req, res) => {
   try {
@@ -25,8 +24,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-
-
 router.put('/:id', async (req, res) => {
   try {
     const updatedTodo = await Todo.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -36,8 +33,6 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-
-
 router.delete('/:id', async (req, res) => {
   try {
     await Todo.findByIdAndDelete(req.params.id);
@@ -46,7 +41,6 @@ router.delete('/:id', async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
-
 
 router.post('/deleteMany', async (req, res) => {
   try {
