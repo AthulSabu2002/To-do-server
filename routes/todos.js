@@ -6,8 +6,10 @@ router.post('/', async (req, res) => {
   try {
     const newTodo = new Todo({
       text: req.body.text,
-      completed: false
+      completed: false,
+      createdAt: new Date(),
     });
+
     const savedTodo = await newTodo.save();
     res.json(savedTodo);
   } catch (err) {
@@ -35,6 +37,7 @@ router.put('/:id', async (req, res) => {
       }
       if (req.body.completed !== undefined) {
         todo.completed = Boolean(req.body.completed);
+        todo.completedAt = req.body.completed ? new Date() : null;
       }
       const updatedTodo = await todo.save();
       console.log('Updated todo:', updatedTodo);
